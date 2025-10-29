@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import { testimonials } from '@/lib/data'
 
 const Testimonials = () => {
@@ -79,21 +78,11 @@ const Testimonials = () => {
                   </div>
 
                   {/* Client Info */}
-                  <div className="flex items-center space-x-4 pt-4 border-t border-dark-border">
-                    <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-accent-cyan/30">
-                      <Image
-                        src={testimonial.avatar}
-                        alt={testimonial.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-dark-text">
-                        {testimonial.name}
-                      </h4>
-                      <p className="text-sm text-dark-muted">{testimonial.role}</p>
-                    </div>
+                  <div className="pt-4 border-t border-dark-border">
+                    <h4 className="font-semibold text-dark-text">
+                      {testimonial.name}
+                    </h4>
+                    <p className="text-sm text-dark-muted">{testimonial.role}</p>
                   </div>
                 </div>
               </motion.div>
