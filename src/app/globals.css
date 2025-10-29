@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Base styles */
+body {
+  @apply bg-dark-bg text-dark-text antialiased;
+}
+
+/* Gradient text utility */
+.gradient-text {
+  @apply bg-gradient-neon bg-clip-text text-transparent;
+}
+
+/* Glow effect utility */
+.glow-cyan {
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5),
+               0 0 20px rgba(0, 240, 255, 0.3),
+               0 0 30px rgba(0, 240, 255, 0.2);
+}
+
+.glow-blue {
+  text-shadow: 0 0 10px rgba(0, 128, 255, 0.5),
+               0 0 20px rgba(0, 128, 255, 0.3),
+               0 0 30px rgba(0, 128, 255, 0.2);
+}
+
+/* Card hover effect */
+.card-hover {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.card-hover:hover {
+  @apply transform -translate-y-2 shadow-2xl;
+  box-shadow: 0 20px 40px rgba(0, 186, 255, 0.2);
+}
+
+/* Button styles */
+.btn-primary {
+  @apply px-6 py-3 rounded-lg font-semibold transition-all duration-300;
+  @apply bg-gradient-to-r from-accent-purple via-accent-blue to-accent-cyan;
+  @apply hover:shadow-lg hover:scale-105;
+}
+
+.btn-secondary {
+  @apply px-6 py-3 rounded-lg font-semibold transition-all duration-300;
+  @apply border-2 border-accent-cyan text-accent-cyan;
+  @apply hover:bg-accent-cyan hover:text-dark-bg hover:shadow-lg;
+}
+
+/* Section padding */
+.section-padding {
+  @apply py-20 px-4 sm:px-6 lg:px-8;
+}
+
+/* Container max width */
+.container-custom {
+  @apply max-w-7xl mx-auto;
+}
+
+/* Backdrop blur effect */
+.backdrop-blur-custom {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
