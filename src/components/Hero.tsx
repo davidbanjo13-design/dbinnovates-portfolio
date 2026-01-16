@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import RotatingWord from './RotatingWord'
 
 const Hero = () => {
   // Animation variants
@@ -55,17 +56,23 @@ const Hero = () => {
 
         <motion.h1
           variants={itemVariants}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-grotesk font-bold mb-6"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-grotesk font-bold mb-4"
         >
-          Hi, I&apos;m{' '}
-          <span className="gradient-text glow-cyan">David Banjo</span>
+          Do you need a{' '}
+          <RotatingWord
+            words={['stunning', 'high-performing', 'lead-generating', 'optimised', 'secure']}
+            className="gradient-text glow-cyan"
+          />
+          {' '}website?
         </motion.h1>
 
         <motion.h2
           variants={itemVariants}
           className="text-2xl sm:text-3xl md:text-4xl font-inter font-semibold text-dark-text mb-6"
         >
-          Full-Stack Developer
+          Hi, I&apos;m{' '}
+          <span className="gradient-text glow-cyan">David Banjo</span>
+          {' '}— Full-Stack Developer
         </motion.h2>
 
         <motion.p
