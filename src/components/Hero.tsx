@@ -66,15 +66,6 @@ const Hero = () => {
           {' '}website?
         </motion.h1>
 
-        <motion.h2
-          variants={itemVariants}
-          className="text-2xl sm:text-3xl md:text-4xl font-inter font-semibold text-dark-text mb-6"
-        >
-          Hi, I&apos;m{' '}
-          <span className="gradient-text glow-cyan">David Banjo</span>
-          {' '}— Full-Stack Developer
-        </motion.h2>
-
         <motion.p
           variants={itemVariants}
           className="text-lg sm:text-xl text-dark-muted max-w-3xl mx-auto mb-10 leading-relaxed"
