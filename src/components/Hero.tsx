@@ -57,6 +57,7 @@ const Hero = () => {
         <motion.h1
           variants={itemVariants}
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-grotesk font-bold mb-4"
+          style={{ verticalAlign: 'top' }}
         >
           Do you need a{' '}
           <RotatingWord

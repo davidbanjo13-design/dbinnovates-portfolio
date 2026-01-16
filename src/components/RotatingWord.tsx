@@ -53,8 +53,8 @@ const RotatingWord = ({
 
   return (
     <span
-      className={`inline-block min-w-[16ch] whitespace-nowrap ${className}`}
-      style={{ verticalAlign: 'baseline' }}
+      className={`min-w-[16ch] whitespace-nowrap flex justify-center items-center ${className}`}
+      style={{ verticalAlign: 'middle' }}
     >
       <AnimatePresence mode="wait">
         <motion.span
