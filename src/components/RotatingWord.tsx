@@ -54,7 +54,11 @@ const RotatingWord = ({
   return (
     <span
       className={`min-w-[16ch] whitespace-nowrap flex justify-center items-center ${className}`}
-      style={{ verticalAlign: 'middle' }}
+      style={{ 
+        verticalAlign: 'middle',
+        filter: 'none',
+        WebkitFilter: 'none'
+      }}
     >
       <AnimatePresence mode="wait">
         <motion.span
@@ -64,6 +68,11 @@ const RotatingWord = ({
           exit="exit"
           variants={variants}
           className="inline-block"
+          style={{
+            filter: 'none',
+            WebkitFilter: 'none',
+            willChange: 'opacity, transform'
+          }}
         >
           {words[index]}
         </motion.span>
