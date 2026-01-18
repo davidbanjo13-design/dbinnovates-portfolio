@@ -66,7 +66,8 @@ const Hero = () => {
 
         <motion.p
           variants={itemVariants}
-          className="text-lg sm:text-xl text-dark-muted max-w-3xl mx-auto mb-10 leading-relaxed bg-none bg-transparent"
+          className="text-lg sm:text-xl text-dark-muted max-w-3xl mx-auto mb-10 leading-relaxed"
+          style={{ background: 'none', backgroundImage: 'none' }}
         >
           I build exceptional web applications, mobile apps, and AI-powered solutions that
           transform ideas into reality. Let&apos;s create something extraordinary together.
