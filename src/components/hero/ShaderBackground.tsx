@@ -124,8 +124,8 @@ const ShaderBackground = () => {
           float vignette = 1.0 - length(p) * 0.3;
           color *= vignette;
 
-          // Reduce opacity for subtle background effect
-          float alpha = 0.15 + field1 * 0.1;
+          // Increase opacity for more visible effect
+          float alpha = 0.35 + field1 * 0.15;
 
           gl_FragColor = vec4(color, alpha);
         }

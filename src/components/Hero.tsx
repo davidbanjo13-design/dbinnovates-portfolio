@@ -34,19 +34,22 @@ const Hero = () => {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16"
     >
+      {/* Base dark background */}
+      <div className="absolute inset-0 bg-dark-bg" />
+
       {/* WebGL Shader Background */}
       <ShaderBackground />
 
-      {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-dark-bg via-dark-surface to-dark-bg">
-        <div className="absolute inset-0 opacity-20">
+      {/* Animated background gradient (reduced opacity) */}
+      <div className="absolute inset-0 bg-gradient-to-br from-dark-bg/50 via-dark-surface/30 to-dark-bg/50">
+        <div className="absolute inset-0 opacity-10">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-purple rounded-full filter blur-3xl animate-pulse"></div>
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-cyan rounded-full filter blur-3xl animate-pulse delay-1000"></div>
         </div>
       </div>
 
       {/* Overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/50 pointer-events-none" aria-hidden="true" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-black/40 pointer-events-none" aria-hidden="true" />
 
       {/* Content */}
       <motion.div
