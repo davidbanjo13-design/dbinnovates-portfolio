@@ -53,17 +53,9 @@ const RotatingWord = ({
 
   return (
     <span
-      className={`min-w-[16ch] whitespace-nowrap flex justify-center items-center px-4 py-2 rounded-lg bg-white shadow-lg ${className}`}
+      className="inline-flex min-w-[16ch] justify-center items-center"
       style={{ 
         verticalAlign: 'middle',
-        filter: 'none',
-        WebkitFilter: 'none',
-        backdropFilter: 'none',
-        WebkitBackdropFilter: 'none',
-        boxShadow: '0px 4px 12px 0px rgba(0, 0, 0, 0.15)',
-        backgroundColor: 'rgba(255, 255, 255, 1)',
-        backgroundImage: 'none',
-        boxSizing: 'content-box'
       }}
     >
       <AnimatePresence mode="wait">
@@ -73,14 +65,7 @@ const RotatingWord = ({
           animate="enter"
           exit="exit"
           variants={variants}
-          className="inline-block font-bold text-gray-900"
-          style={{
-            filter: 'none',
-            WebkitFilter: 'none',
-            willChange: 'opacity, transform',
-            backdropFilter: 'none',
-            WebkitBackdropFilter: 'none'
-          }}
+          className={`inline-block font-bold ${className}`}
         >
           {words[index]}
         </motion.span>
