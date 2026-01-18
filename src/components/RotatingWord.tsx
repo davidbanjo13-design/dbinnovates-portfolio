@@ -53,7 +53,7 @@ const RotatingWord = ({
 
   return (
     <span
-      className="inline-flex min-w-[16ch] justify-center items-center"
+      className="flex flex-col min-w-[16ch] justify-center items-center"
       style={{ 
         verticalAlign: 'middle',
       }}
