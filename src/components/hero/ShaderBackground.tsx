@@ -31,8 +31,8 @@ const ShaderBackground = () => {
 
     // Create renderer
     const renderer = new THREE.WebGLRenderer({
-      antialias: false,
-      alpha: true,
+      antialias: true,
+      alpha: false,
     })
     renderer.setSize(width, height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -62,75 +62,95 @@ const ShaderBackground = () => {
         uniform float iTime;
         uniform vec2 iResolution;
 
-        // Noise function for organic movement
-        float noise(vec2 p) {
-          return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+        // Hash function for better randomness
+        float hash(vec2 p) {
+          vec3 p3 = fract(vec3(p.xyx) * 0.13);
+          p3 += dot(p3, p3.yzx + 3.333);
+          return fract((p3.x + p3.y) * p3.z);
         }
 
-        float smoothNoise(vec2 p) {
-          vec2 i = floor(p);
-          vec2 f = fract(p);
-          f = f * f * (3.0 - 2.0 * f);
+        // Improved noise function
+        float noise(vec2 x) {
+          vec2 i = floor(x);
+          vec2 f = fract(x);
           
-          float a = noise(i);
-          float b = noise(i + vec2(1.0, 0.0));
-          float c = noise(i + vec2(0.0, 1.0));
-          float d = noise(i + vec2(1.0, 1.0));
+          float a = hash(i);
+          float b = hash(i + vec2(1.0, 0.0));
+          float c = hash(i + vec2(0.0, 1.0));
+          float d = hash(i + vec2(1.0, 1.0));
           
-          return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+          vec2 u = f * f * (3.0 - 2.0 * f);
+          return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
         }
 
-        float fbm(vec2 p) {
-          float value = 0.0;
-          float amplitude = 0.5;
-          float frequency = 1.0;
+        // Fractal Brownian Motion for organic patterns
+        float fbm(vec2 x) {
+          float v = 0.0;
+          float a = 0.5;
+          vec2 shift = vec2(100.0);
+          mat2 rot = mat2(cos(0.5), sin(0.5), -sin(0.5), cos(0.5));
           
-          for(int i = 0; i < 5; i++) {
-            value += amplitude * smoothNoise(p * frequency);
-            frequency *= 2.0;
-            amplitude *= 0.5;
+          for (int i = 0; i < 6; ++i) {
+            v += a * noise(x);
+            x = rot * x * 2.0 + shift;
+            a *= 0.5;
           }
-          
-          return value;
+          return v;
         }
 
         void main() {
           vec2 uv = gl_FragCoord.xy / iResolution.xy;
-          vec2 p = uv * 2.0 - 1.0;
-          p.x *= iResolution.x / iResolution.y;
-
-          // Animated flowing gradient
-          float t = iTime * 0.3;
-          vec2 motion = vec2(
-            fbm(p * 2.0 + vec2(t * 0.5, t * 0.3)),
-            fbm(p * 2.0 + vec2(t * 0.3, -t * 0.5))
+          vec2 p = (gl_FragCoord.xy * 2.0 - iResolution.xy) / min(iResolution.x, iResolution.y);
+          
+          float time = iTime * 0.4;
+          
+          // Create flowing aurora/nebula effect
+          vec2 q = vec2(0.0);
+          q.x = fbm(p + vec2(0.0, time * 0.3));
+          q.y = fbm(p + vec2(5.2, time * 0.25));
+          
+          vec2 r = vec2(0.0);
+          r.x = fbm(p + 1.0 * q + vec2(1.7, time * 0.2));
+          r.y = fbm(p + 1.0 * q + vec2(8.3, -time * 0.15));
+          
+          float f = fbm(p + r);
+          
+          // Vibrant color palette - cyan, purple, blue
+          vec3 color = mix(
+            vec3(0.101961, 0.619608, 0.666667),  // Dark cyan
+            vec3(0.666667, 0.666667, 0.498039),  // Warm white
+            clamp((f * f) * 4.0, 0.0, 1.0)
           );
-
-          // Create color fields
-          float field1 = fbm(p * 1.5 + motion + t * 0.2);
-          float field2 = fbm(p * 2.0 - motion * 0.5 + t * 0.15);
-          float field3 = fbm(p * 2.5 + motion * 0.3 - t * 0.1);
-
-          // Cyan/Purple/Blue gradient matching your theme
-          vec3 color1 = vec3(0.0, 0.94, 1.0); // accent-cyan
-          vec3 color2 = vec3(0.58, 0.0, 1.0); // accent-purple
-          vec3 color3 = vec3(0.0, 0.5, 1.0); // accent-blue
-
-          vec3 color = mix(color1, color2, field1);
-          color = mix(color, color3, field2);
-          color += vec3(field3 * 0.2);
-
-          // Add subtle vignette
-          float vignette = 1.0 - length(p) * 0.3;
-          color *= vignette;
-
-          // Increase opacity for more visible effect
-          float alpha = 0.35 + field1 * 0.15;
-
-          gl_FragColor = vec4(color, alpha);
+          
+          color = mix(
+            color,
+            vec3(0.0, 0.0, 0.164706),  // Deep blue
+            clamp(length(q), 0.0, 1.0)
+          );
+          
+          color = mix(
+            color,
+            vec3(0.666667, 1.0, 1.0),  // Bright cyan
+            clamp(length(r.x), 0.0, 1.0)
+          );
+          
+          // Add shooting stars/particles effect
+          vec2 particleUV = p * 3.0;
+          particleUV.x += time * 0.5;
+          float stars = smoothstep(0.98, 1.0, noise(particleUV * 10.0));
+          color += vec3(stars) * 2.0;
+          
+          // Boost brightness significantly
+          color = pow(color, vec3(0.8)) * 1.5;
+          
+          // Add extra glow
+          float glow = (f * f * f + 0.6 * f * f + 0.5 * f);
+          color += glow * vec3(0.2, 0.4, 0.6);
+          
+          gl_FragColor = vec4(color, 1.0);
         }
       `,
-      transparent: true,
+      transparent: false,
     })
 
     // Create plane geometry
@@ -198,7 +218,7 @@ const ShaderBackground = () => {
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 pointer-events-none"
+      className="absolute inset-0 z-0"
       aria-hidden="true"
     />
   )
