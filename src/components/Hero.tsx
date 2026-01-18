@@ -82,6 +82,10 @@ const Hero = () => {
         <motion.div
           variants={itemVariants}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          style={{
+            background: 'none',
+            backgroundImage: 'none'
+          }}
         >
           <a href="#projects" className="btn-primary w-full sm:w-auto">
             View My Work
