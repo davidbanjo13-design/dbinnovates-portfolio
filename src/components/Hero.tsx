@@ -32,19 +32,20 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 bg-black"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16"
     >
-      {/* WebGL Shader Background - ONLY background */}
+      {/* 21st.dev Shader Background - ONLY background */}
       <ShaderBackground />
 
       {/* Content */}
-      <motion.div
-        className="relative z-10 container-custom px-4 sm:px-6 lg:px-8 text-center"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <motion.div variants={itemVariants} className="mb-6">
+      <div className="relative z-10">
+        <motion.div
+          className="container-custom px-4 sm:px-6 lg:px-8 text-center"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div variants={itemVariants} className="mb-6">
           <span className="inline-block px-4 py-2 rounded-full bg-dark-surface border border-accent-cyan/30 text-accent-cyan text-sm font-medium mb-4">
             👋 Welcome to DBinnovates
           </span>
@@ -109,8 +110,9 @@ const Hero = () => {
               <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
             </svg>
           </motion.div>
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* Decorative elements */}
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-cyan to-transparent"></div>
