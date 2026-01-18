@@ -1,6 +1,5 @@
 'use client'
 
-// @ts-expect-error - TypeScript/IDE diagnostic: "framer-motion ... is not a module" (build/runtime unaffected)
 import { motion } from 'framer-motion'
 import RotatingWord from './RotatingWord'
 import ShaderBackground from './hero/ShaderBackground'
