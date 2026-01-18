@@ -64,21 +64,6 @@ const Hero = () => {
           {' '}website?
         </motion.h1>
 
-        <motion.p
-          variants={itemVariants}
-          className="text-lg sm:text-xl text-dark-muted max-w-3xl mx-auto mb-10 leading-relaxed"
-          style={{ 
-            background: 'transparent !important',
-            backgroundImage: 'none !important',
-            backgroundColor: 'transparent',
-            backgroundClip: 'border-box',
-            WebkitBackgroundClip: 'border-box'
-          }}
-        >
-          I build exceptional web applications, mobile apps, and AI-powered solutions that
-          transform ideas into reality. Let&apos;s create something extraordinary together.
-        </motion.p>
-
         <motion.div
           variants={itemVariants}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
